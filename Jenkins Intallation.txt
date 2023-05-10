@@ -1,0 +1,12 @@
+
+Install Jenkins on Amazon
+
+*	sudo wget -O /etc/yum.repos.d/jenkins.repo \https://pkg.jenkins.io/redhat-stable/jenkins.repo
+*	yum repolist
+*	sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+*	sudo yum upgrade
+*	sudo yum search java
+*	sudo yum install java-11-amazon-corretto.x86_64 -y    java-11-amazon-corretto.x86_64
+*	java --version
+*	sudo yum install jenkins -y
+

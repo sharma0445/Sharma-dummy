@@ -1,0 +1,14 @@
+1 curl.exe -LO "https://dl.k8s.io/release/v1.27.0/bin/windows/amd64/kubectl.exe"
+2 clear
+3 Get-ExecutionPolicy
+4 Get-ExecutionPolicy -List
+5 Get-ExecutionPolicy -Scope CurrentUser
+6 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Objec...
+7 choco
+8 choco -?
+9 choco install minikube
+10 minikube start
+11 kubectl get po -A
+12 clear
+13 kubectl get nodes
+14 kubectl get pods

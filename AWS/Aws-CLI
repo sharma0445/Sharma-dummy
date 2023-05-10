@@ -1,0 +1,7 @@
+Step 1:
+    Download and Install AWS CLI
+Step2:
+    Open Commands prompt and check the aws-CLI is installd or not
+    -------    aws --version
+Step3:
+    Login to AWS Console and generate Access keys

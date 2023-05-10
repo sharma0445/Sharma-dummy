@@ -1,0 +1,11 @@
+Access Key	: AKIAV7WIKK4WD35DVRJY
+secret key 	: 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
+
+
+
+AMI: 	ami-0ca94423a4b0b78b2
+	ami-0b1272ad2a4a4c342
+
+
+
+Main Web:  https://jhooq.com/terraform-ec2-instance-setup/

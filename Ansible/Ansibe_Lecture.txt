@@ -1,0 +1,172 @@
+Topics to get covered in Ansible
+1. Ansible overview
+2. Ansible Architecture
+3. Ansible Working/Installation on Ubuntu and RHEL
+4. Ansible Client connection
+5. Ansible Modules/ Ad-hoc Commands
+6. Intro to Playbook
+7. Using Variables in Playbooks
+8. Using Conditional operators in Ansible Playbooks
+9. Using Fles in Ansible-playbooks and enabling logs
+10. Using Tags in Ansible
+11. Using Roles in Ansible
+12. Ansible Galaxy
+13. Ansible Vault
+14. Ansible Tower installation and configuring in RHEL7(Centos 7)
+**********************************************************************
+
+
+Ansible Loops
+
+---
+- name: Install Multiple-Packages 
+  hosts: all
+  tasks: 
+    - name: Install Packages
+      yum:
+        name= {{item}}  state= latest
+        with_items:
+        - nginx
+        - httpd
+        - postgresql
+        state: present
+...
+
+**********************************************************************
+---
+- name: Install Packages in Ansible 2.11
+  hosts: all
+  tasks: 
+    - name: Install Packages
+      yum:
+        name:
+        - nginx
+        - httpd
+        - postgresql
+        state: present
+...
+**********************************************************************
+---
+- name: Install Packages in Ansible 2.11 in Loops
+  hosts: all
+  tasks: 
+    - name: Install Packages
+      yum:
+        name: ['nginx', 'gcc', 'apache2' 'postgresql']
+        state: present
+...
+**********************************************************************
+Files in Ansible Playbook:
+
+1. create a file 
+2. provide execute permission to the above file
+3. create a playbook to execute the written script
+4. find the yaml below
+
+---
+- name: Ansible Playbook with Files
+  hosts: all
+  tasks:
+    - name: Hello Message
+      script: hello.sh
+...
+ *************************************
+
+ To create a logs 
+ add a parameter in ansible.cfg file
+ log_path=/tmp/ansible
+*************************************
+Long Playbooks:
+
+---
+- hosts: all
+  name: Installation of Apache2
+  tasks:
+    - name: Install Apache Packages
+      yum:
+        name: httpd
+        state: present
+    - name: start the Apache Service
+      service:
+        name: httpd
+        state: started
+    - name: Install firewalld
+      become: yes
+      yum:
+        name: firewalld
+        state: latest
+    - name: start firewalld
+      become: yes
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      
+    - name: enable 1234
+      firewalld:
+        zone: public
+        port: 1234/tcp
+        permanent: true
+        state: enabled
+      become: yes
+    - name: Reload the Server Configuration
+      systemd:
+        name: firewalld
+        state: reloaded
+    - name: Copy the Index file to Apache directory
+      copy:
+        src: /tmp/index.html
+        dest: /var/www/html/
+    - name: Restart the Apache Service
+      service:
+        name: httpd
+        state: restarted
+
+    Create index.html file in the defined path 
+    use verbose module to check the complete logs Message
+#### to check synatx errors ######
+
+------  ansible-playbook <yaml file> --syntax-check
+
+*************************************
+#Tags in Ansible-Playbooks#
+To execute select task in Playbook using Tags
+------ ansible-playbook -v  apache2.yaml --become --tags=serv_tag
+       ansible-playbook -v <yaml file> --tags="pack_tag, serv_tag" -become
+        
+Skip the tasks in a single playbook
+--- ansible-playbook -v <yaml file> --skip-tags="pack_tag"
+
+To make a Tag as default
+      - name: Restart the Apache Service
+      service: 
+        name: httpd
+        state: restarted
+      tags:
+      - always
+**********************************************
+
+Ansible Roles:
+create a role using Commands--   sudo ansible-galaxy /etc/ansible/roles/apache --offline
+
+in apache folder
+open tasks
+create diff files to adopt
+
+and add all the file names as variable in main.yaml file
+
+
+- import_tasks: imstall.yaml
+- import_tasks: config.yaml
+- import_tasks: service.yaml
+
+
+********************************************************************
+
+Ansible - Galaxy (Repo)
+
+uses to staore the Roles in the Repo
+
+
+
+
